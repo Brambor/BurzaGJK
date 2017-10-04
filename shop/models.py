@@ -1,30 +1,17 @@
 
-# from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
-class User(models.Model):  # AbstractUser
+class User(User):
 	def __str__(self):
 		return self.username
+
 	class Meta:
 		verbose_name = _("Uživatel")
 		verbose_name_plural = _("Uživatelé")
-	username = models.CharField(
-		max_length=255,
-	)
-	first_name = models.CharField(
-		max_length=255,
-	)
-	last_name = models.CharField(
-		max_length=255,
-	)
-	email = models.CharField(
-		max_length=255,
-	)
-	password = models.CharField(
-		max_length=255,
-	)
+
 	visited_class = models.CharField(
 		max_length=255,
 		choices=(
@@ -40,6 +27,7 @@ class Book(models.Model):
 			author=self.author,
 			name=self.name,
 		)
+
 	class Meta:
 		verbose_name = _("Kniha")
 		verbose_name_plural = _("Knihy")
@@ -77,6 +65,7 @@ class Offer(AbstractOffer):
 			book=self.book.name,
 			price=self.price,
 		)
+
 	class Meta:
 		verbose_name = _("Nabídka")
 		verbose_name_plural = _("Nabídky")
