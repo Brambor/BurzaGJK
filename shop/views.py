@@ -3,10 +3,8 @@ from django.template import loader
 from .models import Offer
 
 
-def index_view(request):
-	context = {"offers": Offer.objects.all(),
-				"off:": Offer.objects.all()[0],
-	}
-	print(context["offers"][0].get_img())
-	template = loader.get_template('index.html')
+def list_offers(request):
+	context = {"offers": Offer.objects.all()}
+
+	template = loader.get_template('grid_of_offers.html')
 	return HttpResponse(template.render(context, request))

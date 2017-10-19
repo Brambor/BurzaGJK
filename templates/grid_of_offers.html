@@ -1,0 +1,28 @@
+<head>
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+	<div class="top_bar">
+		<a class="top_bar_menu">procházet</a>
+		<a class="top_bar_menu">přihozeno</a>
+		<a class="top_bar_menu">prodáváno</a>
+		<a class="top_bar_menu">historie</a>
+	</div>
+
+	<div class="main_field">
+		{% for offer in offers %}
+			<div class="offer">
+				<p>autor: <b>{{offer.book.author}}</b></p>
+				<p>Book: <b>{{offer.book.name}}</b></p>
+				<p>
+					Price: <b>{{offer.price}} Kč</b>
+					{% if offer.negotiable %}
+						(negotiable)
+					{% endif %}
+				</p>
+				<p>Vendor: <b>{{offer.vendor}}</b></p>
+			</div>
+		{% endfor %}
+	</div>
+</body>
