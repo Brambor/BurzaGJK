@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from  shop.views import list_offers
+from shop.views import offer_detail, offer_list
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^offers/all', list_offers),
+	url(r'^admin/', admin.site.urls),
+	url(r'^offers/all$', offer_list, name="offers_all"),
+	url(r'^offers/(?P<offer>[0-9]+)', offer_detail, name="offer_detail"),
 ]
