@@ -41,7 +41,7 @@ class Book(models.Model):
 	name = models.CharField(
 		max_length=255,
 	)
-	# image
+	image = models.ImageField()
 	subject = models.CharField(
 		max_length=255,
 	)

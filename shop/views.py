@@ -54,7 +54,7 @@ def cluster_list(request):
 			clusters[offer.book.name]["amount"] += 1
 		else:
 			clusters[offer.book.name] = {
-				# image
+				"image": offer.book.image.url,
 				"book_author": offer.book.author,
 				"book_name": offer.book.name,
 				"min_price": offer.price,

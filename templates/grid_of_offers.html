@@ -3,6 +3,7 @@
 	<div class="main_field">
 		{% for offer in offers %}
 			<a href="{% url 'offer_detail' offer.id %}"><div class="offer">
+				<img src="{{offer.book.image.url}}" style="max-width: 200px"></img>
 				<p>autor: <b>{{offer.book.author}}</b></p>
 				<p>Book: <b>{{offer.book.name}}</b></p>
 				<p>Stav: <b>{{offer.description}}</b></p>
