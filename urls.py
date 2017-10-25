@@ -15,16 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from shop.views import cluster_list, history_list, login, logout, offer_detail, offer_list, sell_list
+from shop.views import cluster_list, general_list, login, logout, offer_detail
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
-	url(r'^offers/all$', offer_list, name="offers_all"),
-	url(r'^offers/(?P<book_id>[0-9]+)$', offer_list, name="offers_filter"),
+	url(r'^general', general_list, name="general_filter"),
 	url(r'^clusters/all$', cluster_list, name="clusters_all"),
 	url(r'^offers/(?P<offer>[0-9]+)', offer_detail, name="offer_detail"),
-	url(r'^sells/all$', sell_list, name="sells_all"),
-	url(r'^history/all$', history_list, name="history_all"),
 	url(r'^login$', login, name="login"),
 	url(r'^logout$', logout, name="logout"),
 ]

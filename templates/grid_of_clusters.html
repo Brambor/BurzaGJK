@@ -2,7 +2,7 @@
 
 	<div class="main_field">
 		{% for cluster in clusters %}
-			<a href="{% url 'offers_filter' cluster.book_id %}"><div class="offer">
+			<a href="{% url 'general_filter'%}?book_id={{cluster.book_id}}"><div class="offer">
 					<p>Autor: <b>{{cluster.book_author}}</b></p>
 					<p>Kniha: <b>{{cluster.book_name}}</b></p>
 					<p>Cena: <b>{{cluster.min_price}} - {{cluster.max_price}} Kč</b></p>
