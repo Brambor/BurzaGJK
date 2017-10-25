@@ -19,6 +19,8 @@ def general_list(request, **kwargs):
 
 	try:
 		q = request.GET["type"]
+		if q == "buy":
+			offers = offers.exclude(vendor=user)
 		if q == "sell":
 			offers = offers.filter(active=True, vendor=user)
 		if q == "history":
