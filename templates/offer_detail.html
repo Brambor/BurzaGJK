@@ -1,18 +1,22 @@
 {% include "base.html" %}
 
 	<div class="main_field">
-		<img style="float:left; height:600px; width: 423px; background-color: blue;"></img>
-		<div class="on_right">
-			<p>Autor: <b>{{offer.book.author}}</b></p>
-			<p>Kniha: <b>{{offer.book.name}}</b></p>
-			<p>Stav: <b>{{offer.description}}</b></p>
-			<p>
-				Cena: <b>{{offer.price}} Kč</b>
-				{% if offer.negotiable %}
-					(negotiable)
-				{% endif %}
-			</p>
-			<p>Prodávající: <b>{{offer.vendor}}</b></p>
-		</div>
+		<table align="center"><tr>
+			<td valign="top">
+				<img style="height:600px; width: 423px; background-color: blue;"></img>
+			</td>
+			<td valign="top">
+				<p>Autor: <b>{{offer.book.author}}</b></p>
+				<p>Kniha: <b>{{offer.book.name}}</b></p>
+				<p>Stav: <b>{{offer.description}}</b></p>
+				<p>
+					Cena: <b>{{offer.price}} Kč</b>
+					{% if offer.negotiable %}
+						(negotiable)
+					{% endif %}
+				</p>
+				<p>Prodávající: <b>{{offer.vendor}}</b></p>
+			</td>
+		</tr></table>
 	</div>
 </body>
