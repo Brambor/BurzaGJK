@@ -5,7 +5,7 @@
 			<a href="{% url 'general_filter'%}?book_id={{cluster.book_id}}"><div class="offer">
 					<p>Autor: <b>{{cluster.book_author}}</b></p>
 					<p>Kniha: <b>{{cluster.book_name}}</b></p>
-					<p>Cena: <b>{{cluster.min_price}} - {{cluster.max_price}} Kč</b></p>
+					<p>Cena: <b>{{cluster.price}} Kč</b></p>
 					<p>Množství: <b>{{cluster.amount}} Ks</b></p>
 			</div></a>
 		{% endfor %}

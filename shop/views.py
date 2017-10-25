@@ -65,6 +65,16 @@ def cluster_list(request):
 
 	cluster_offers = []
 	for c in clusters:
+		if clusters[c]["amount"] == 1:
+			clusters[c]["price"] = clusters[c]["min_price"]
+		else:
+			clusters[c]["price"] = "{min_price} - {max_price}".format(
+				min_price=clusters[c]["min_price"],
+				max_price=clusters[c]["max_price"],
+			)
+		del clusters[c]["min_price"]
+		del clusters[c]["max_price"]
+
 		cluster_offers.append(clusters[c])
 
 	context = {
