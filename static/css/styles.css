@@ -20,6 +20,7 @@ a {
 	transition-duration: 0.3s;
 	transition-timing-function: linear;
 }
+
 .top_bar_menu:hover {
 	background-color: #b1c1da;
 }
@@ -33,6 +34,7 @@ a {
 
 .offer {
 	display: inline-block;
+	vertical-align: top;
 	max-width: 300px;
 	padding: 5px;
 	margin: 5px;

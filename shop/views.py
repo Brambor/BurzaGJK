@@ -14,13 +14,16 @@ def general_list(request, **kwargs):
 	try:
 		q = request.GET["book_id"]
 		offers = offers.filter(book=q)
+
+		template = loader.get_template('grid_of_offers_for_one_book.html')
 	except KeyError:
-		pass
+		template = loader.get_template('grid_of_offers.html')
 
 	try:
 		q = request.GET["type"]
 		if q == "buy":
 			offers = offers.exclude(vendor=user)
+			print("vendor excluded")
 		if q == "sell":
 			offers = offers.filter(active=True, vendor=user)
 		if q == "history":
@@ -32,8 +35,6 @@ def general_list(request, **kwargs):
 		"offers": offers,
 		"user": user,
 	}
-
-	template = loader.get_template('grid_of_offers.html')
 	return HttpResponse(template.render(context, request))
 
 def cluster_list(request):
