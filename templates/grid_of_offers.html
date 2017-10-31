@@ -4,16 +4,19 @@
 		{% for offer in offers %}
 			<a href="{% url 'offer_detail' offer.id %}"><div class="offer">
 				<img src="{{offer.book.image.url}}" style="max-width: 200px"></img>
-				<p>autor: <b>{{offer.book.author}}</b></p>
-				<p>Book: <b>{{offer.book.name}}</b></p>
+				<p>Autor: <b>{{offer.book.author}}</b></p>
+				<p>Kniha: <b>{{offer.book.name}}</b></p>
 				<p>Stav: <b>{{offer.description}}</b></p>
 				<p>
-					Price: <b>{{offer.price}} Kč</b>
+					Cena: <b>{{offer.price}} Kč</b>
 					{% if offer.negotiable %}
-						(negotiable)
+						(smlouvatelné)
 					{% endif %}
 				</p>
-				<p>Vendor: <b>{{offer.vendor}}</b></p>
+				{% if offer.will_be_active != None %}
+					<p>K odebrání od: <b>{{offer.will_be_active|date:"d.m.Y"}}</b></p>
+				{% endif %}
+				<p>Prodejce: <b>{{offer.vendor}}</b></p>
 			</div></a>
 		{% endfor %}
 	</div>

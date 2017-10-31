@@ -86,6 +86,10 @@ class Offer(AbstractOffer):
 		max_length=255,
 		blank=True,
 	)
+	will_be_active = models.DateField(
+		blank=True,
+		null=True,
+	)
 
 
 # class Demand(AbstractOffer):

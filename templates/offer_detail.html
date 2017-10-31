@@ -15,6 +15,9 @@
 						(negotiable)
 					{% endif %}
 				</p>
+				{% if offer.will_be_active != None %}
+					<p>K odebrání od: <b>{{offer.will_be_active|date:"d.m.Y"}}</b></p>
+				{% endif %}
 				<p>Prodávající: <b>{{offer.vendor}}</b></p>
 			</td>
 		</tr></table>
