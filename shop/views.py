@@ -103,8 +103,8 @@ def offer_detail(request, offer):
 
 def login(request):
 	request.session["logged_in"] = User.objects.all()[0].id
-	return redirect("general_filter")
+	return redirect("clusters_all")
 
 def logout(request):
 	del request.session["logged_in"]
-	return redirect("general_filter")
+	return redirect("clusters_all")
