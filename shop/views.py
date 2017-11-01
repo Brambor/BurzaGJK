@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import loader
+
+from .forms import MakeOfferForm
 from .models import Offer, User
 
 
@@ -11,6 +13,9 @@ def general_list(request, **kwargs):
 	except KeyError:
 		user = False
 
+	context = {
+		"user": user,
+	}
 	try:
 		q = request.GET["book_id"]
 		offers = offers.filter(book=q)
@@ -23,18 +28,19 @@ def general_list(request, **kwargs):
 		q = request.GET["type"]
 		if q == "buy":
 			offers = offers.exclude(vendor=user)
-			print("vendor excluded")
 		if q == "sell":
 			offers = offers.filter(active=True, vendor=user)
+			
+			form = MakeOfferForm()
+		else:
+			form = False
 		if q == "history":
 			offers = offers.filter(active=False, vendor=user)
 	except KeyError:
-		pass
+		form = False
 
-	context = {
-		"offers": offers,
-		"user": user,
-	}
+	context["offers"] = offers
+	context["form"] = form
 	return HttpResponse(template.render(context, request))
 
 def cluster_list(request):

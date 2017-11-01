@@ -1,6 +1,28 @@
 {% include "base.html" %}
 
 	<div class="main_field">
+		{% if form %}
+			<form>
+				<table>
+					<th>
+						Sell
+					</th>
+					{% for field in form %}
+						<tr>
+							<td>
+								{{field.label}}
+							</td>
+							<td>
+								{{ field }}
+							</td>
+						</tr>
+					{% endfor %}
+					<td>
+						<input type="submit" name="button" value="Submit" />
+					</td>
+				</table>
+			</form>
+		{% endif %}	
 		{% for offer in offers %}
 			<a href="{% url 'offer_detail' offer.id %}"><div class="offer">
 				<img src="{{offer.book.image.url}}" style="max-width: 200px"></img>
