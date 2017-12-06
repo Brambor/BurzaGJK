@@ -9,9 +9,9 @@ from .models import Offer, User
 def general_list(request, **kwargs):
 	offers = Offer.objects.all()
 	try:
-		user = request.session["logged_in"]
+		user = int(request.session["logged_in"])
 	except KeyError:
-		user = False
+		user = -1
 
 	context = {
 		"user": user,
@@ -45,9 +45,9 @@ def general_list(request, **kwargs):
 
 def cluster_list(request):
 	try:
-		user = request.session["logged_in"]
+		user = int(request.session["logged_in"])
 	except KeyError:
-		user = False
+		user = -1
 	offers = Offer.objects.all().filter(active=True).exclude(vendor=user)
 	clusters = {}
 	for offer in offers:
@@ -96,9 +96,9 @@ def cluster_list(request):
 
 def offer_detail(request, offer):
 	try:
-		user = request.session["logged_in"]
+		user = int(request.session["logged_in"])
 	except KeyError:
-		user = False
+		user = -1
 	context = {
 		"offer": get_object_or_404(Offer, id=offer),
 		"user": user,

@@ -6,7 +6,7 @@
 	<div class="top_bar">
 		<a href="{% url 'clusters_all' %}"><div class="top_bar_menu">procházet knihy</div></a>
 		<a href="{% url 'general_filter' %}?type=buy"><div class="top_bar_menu">procházet nabídky</div></a>
-		{% if user %}
+		{% if user > -1 %}
 			<a href="{% url 'general_filter' %}?type=sell"><div class="top_bar_menu">prodáváno</div></a>
 			<div class="top_bar_menu">přihozeno</div>
 			<div class="top_bar_menu">k vyřízení</div>
