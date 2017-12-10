@@ -3,6 +3,14 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from itertools import chain
+
+classes = chain(
+	(("R{i}.A".format(i=i), "R{i}.A".format(i=i)) for i in range(1, 9)),
+	(("{n}.{clas}".format(n=i, clas=clas), "{n}.{clas}".format(n=i, clas=clas))
+		for i in range(1, 5) for clas in ("A", "B", "C")),
+)
+
 
 class User(User):
 	def __str__(self):
@@ -14,10 +22,7 @@ class User(User):
 
 	visited_class = models.CharField(
 		max_length=255,
-		choices=(
-			('1B', '1.B'),
-			('R6A', 'R6.A'),
-		)
+		choices=classes
 	)
 
 
