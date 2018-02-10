@@ -2,7 +2,8 @@
 
 	<div class="main_field">
 		{% if form %}
-			<form>
+			<form method="post" action="process_sell">
+				{% csrf_token %}
 				<table>
 					<th>
 						Sell

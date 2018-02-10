@@ -1,6 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.template import loader
+from django.urls import reverse
 
 from .forms import MakeOfferForm
 from .models import Offer, User
@@ -107,7 +108,6 @@ def offer_detail(request, offer):
 	template = loader.get_template('offer_detail.html')
 	return HttpResponse(template.render(context, request))
 
-
 def login(request):
 	request.session["logged_in"] = User.objects.all()[0].id
 	return redirect("clusters_all")
@@ -115,3 +115,14 @@ def login(request):
 def logout(request):
 	del request.session["logged_in"]
 	return redirect("clusters_all")
+
+def process_sell(request):
+	form = MakeOfferForm(request.POST)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.active = True
+		instance.vendor = User.objects.filter(id = request.session['logged_in'])[0]
+
+		instance.save()
+
+	return HttpResponseRedirect("{}?type=sell".format(reverse('general_filter')))

@@ -1,8 +1,8 @@
 from django.forms import ModelForm
 
-from .models import Offer
+from .models import Offer, User
 
 class MakeOfferForm(ModelForm):
 	class Meta:
 		model = Offer
-		fields = ["book", "description", "will_be_active", "price"]
+		exclude = ["active", "vendor", "buyer"]

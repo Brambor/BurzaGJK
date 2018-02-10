@@ -17,13 +17,14 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
-from shop.views import cluster_list, general_list, login, logout, offer_detail
+from shop.views import cluster_list, general_list, login, logout, offer_detail, process_sell
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^general', general_list, name="general_filter"),
 	url(r'^clusters/all$', cluster_list, name="clusters_all"),
 	url(r'^offers/(?P<offer>[0-9]+)', offer_detail, name="offer_detail"),
+	url(r'^process_sell', process_sell, name="process_sell"),
 	url(r'^login$', login, name="login"),
 	url(r'^logout$', logout, name="logout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
