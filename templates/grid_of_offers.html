@@ -2,7 +2,7 @@
 
 	<div class="main_field">
 		{% if form %}
-			<form method="post" action="process_sell">
+			<form method="post" action="{% url 'process_sell' %}">
 				{% csrf_token %}
 				<table>
 					<th>
@@ -20,7 +20,7 @@
 					{% endfor %}
 					<tr>
 						<td>
-							<input type="submit" name="button" value="Submit" />
+							<input type="submit" name="button" value="Submit">
 						</td>
 					</tr>
 				</table>

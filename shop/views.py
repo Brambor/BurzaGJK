@@ -121,8 +121,19 @@ def process_sell(request):
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.active = True
-		instance.vendor = User.objects.filter(id = request.session['logged_in'])[0]
+		instance.vendor = User.objects.get(id=request.session['logged_in'])
 
 		instance.save()
 
 	return HttpResponseRedirect("{}?type=sell".format(reverse('general_filter')))
+
+
+def process_buy(request):
+	
+	offer_id = request.POST['offer_id']
+
+	o = Offer.objects.get(id=offer_id)
+
+	o.buyer.add(User.objects.get(id=request.session['logged_in']))
+
+	return HttpResponseRedirect(reverse('offer_detail', args=(offer_id)))

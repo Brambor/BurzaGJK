@@ -19,6 +19,11 @@
 					<p>K odebrání od: <b>{{offer.will_be_active|date:"d.m.Y"}}</b></p>
 				{% endif %}
 				<p>Prodávající: <b>{{offer.vendor}}</b></p>
+				<form method="post" action="{% url 'process_buy' %}">
+					{% csrf_token %}
+					<input type="submit" value="Koupit">
+					<input type="hidden" name="offer_id" value="{{offer.id}}">
+				</form>
 			</td>
 		</tr></table>
 	</div>
