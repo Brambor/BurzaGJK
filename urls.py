@@ -21,11 +21,11 @@ from shop.views import *
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
-	url(r'^general', general_list, name="general_filter"),
-	url(r'^clusters/all$', cluster_list, name="clusters_all"),
-	url(r'^offers/(?P<offer>[0-9]+)', offer_detail, name="offer_detail"),
-	url(r'^process_sell', process_sell, name="process_sell"),
-	url(r'^process_buy', process_buy, name="process_buy"),
-	url(r'^login$', login, name="login"),
-	url(r'^logout$', logout, name="logout"),
+	url(r'^general', general_list, name='general_filter'),
+	url(r'^clusters/all$', cluster_list, name='clusters_all'),
+	url(r'^offers/(?P<offer>[0-9]+)', offer_detail, name='offer_detail'),
+	url(r'^process_sell', process_sell, name='process_sell'),
+	url(r'^process_buy', process_buy, name='process_buy'),
+	url(r'^login$', login_view, name='login'),
+	url(r'^logout$', logout_view, name='logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

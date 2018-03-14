@@ -6,9 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 from itertools import chain
 
 classes = chain(
-	(("R{i}.A".format(i=i), "R{i}.A".format(i=i)) for i in range(1, 9)),
-	(("{n}.{clas}".format(n=i, clas=clas), "{n}.{clas}".format(n=i, clas=clas))
-		for i in range(1, 5) for clas in ("A", "B", "C")),
+	(('R{i}.A'.format(i=i), 'R{i}.A'.format(i=i)) for i in range(1, 9)),
+	(('{n}.{clas}'.format(n=i, clas=clas), '{n}.{clas}'.format(n=i, clas=clas))
+		for i in range(1, 5) for clas in ('A', 'B', 'C')),
 )
 
 
@@ -17,8 +17,8 @@ class User(User):
 		return self.username
 
 	class Meta:
-		verbose_name = _("Uživatel")
-		verbose_name_plural = _("Uživatelé")
+		verbose_name = _('Uživatel')
+		verbose_name_plural = _('Uživatelé')
 
 	visited_class = models.CharField(
 		max_length=255,
@@ -28,14 +28,14 @@ class User(User):
 
 class Book(models.Model):
 	def __str__(self):
-		return "{author}: {name}".format(
+		return '{author}: {name}'.format(
 			author=self.author,
 			name=self.name,
 		)
 
 	class Meta:
-		verbose_name = _("Kniha")
-		verbose_name_plural = _("Knihy")
+		verbose_name = _('Kniha')
+		verbose_name_plural = _('Knihy')
 
 	ISBN = models.CharField(
 		max_length=255,  # 13char into four parts
@@ -55,8 +55,8 @@ class Book(models.Model):
 
 class AbstractOffer(models.Model):
 	class Meta:
-		verbose_name = _("Abstraktní nabídka")
-		verbose_name_plural = _("Abstraktní nabídky")
+		verbose_name = _('Abstraktní nabídka')
+		verbose_name_plural = _('Abstraktní nabídky')
 
 	price = models.IntegerField()
 	negotiable = models.BooleanField()
@@ -65,23 +65,23 @@ class AbstractOffer(models.Model):
 
 class Offer(AbstractOffer):
 	def __str__(self):
-		return "vendor: {vendor}, book: {book}, price: {price} Kč".format(
+		return 'vendor: {vendor}, book: {book}, price: {price} Kč'.format(
 			vendor=self.vendor.username,
 			book=self.book.name,
 			price=self.price,
 		)
 
 	class Meta:
-		verbose_name = _("Nabídka")
-		verbose_name_plural = _("Nabídky")
+		verbose_name = _('Nabídka')
+		verbose_name_plural = _('Nabídky')
 
 	vendor = models.ForeignKey(
 		User,
-		related_name="offer",
+		related_name='offer',
 	)
 	buyer = models.ManyToManyField(
 		User,
-		related_name="purchase",
+		related_name='purchase',
 		blank=True,
 	)
 	book = models.ForeignKey(
@@ -95,9 +95,3 @@ class Offer(AbstractOffer):
 		blank=True,
 		null=True,
 	)
-
-
-# class Demand(AbstractOffer):
-# 	class Meta:
-# 		verbose_name = _("Poptávka")
-# 		verbose_name_plural = _("Poptávky")
