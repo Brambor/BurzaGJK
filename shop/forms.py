@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Offer, User
+from .models import Offer, User, Book
 
 class MakeOfferForm(forms.ModelForm):
 	class Meta:
@@ -15,3 +15,8 @@ class LoginForm(forms.ModelForm):
 		widgets = {
 			'password': forms.PasswordInput(),
 		}
+
+class AddBookForm(forms.ModelForm):
+	class Meta:
+		model = Book
+		exclude = ['ISBN', 'subject']

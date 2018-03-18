@@ -2,6 +2,7 @@
 
 	<div class="main_field">
 		{% if form %}
+			<p>Nemůžete najít knihu? <a href="{% url 'add_book' %}">Přidejte jí!</a></p>
 			<form method="post" action="{% url 'process_sell' %}">
 				{% csrf_token %}
 				<table>

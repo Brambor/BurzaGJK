@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template import loader
 from django.urls import reverse
 
-from .forms import MakeOfferForm, LoginForm
+from .forms import AddBookForm, MakeOfferForm, LoginForm
 from .models import Offer, User
 
 
@@ -182,3 +182,23 @@ def process_buy(request):
 	o.buyer.add(User.objects.get(id=user))
 
 	return HttpResponseRedirect(reverse('offer_detail', args=(offer_id)))
+
+def add_book(request):
+	if request.user.is_authenticated:
+		context = {'user': request.user.id}
+	else:
+		return redirect('clusters_all')
+
+	template = loader.get_template('add_book.html')
+
+	if request.method == 'POST':
+		form = AddBookForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+			response = redirect('general_filter')
+			response['Location'] += '?type=sell'  #success message
+			return response
+	else:
+		context['form'] =  AddBookForm()
+
+	return HttpResponse(template.render(context, request))

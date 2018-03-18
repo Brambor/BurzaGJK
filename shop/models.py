@@ -46,7 +46,9 @@ class Book(models.Model):
 		verbose_name = _('název'),
 		max_length=255,
 	)
-	image = models.ImageField()
+	image = models.ImageField(
+		verbose_name = _('obrázek'),
+	)
 	subject = models.CharField(
 		max_length=255,
 	)
