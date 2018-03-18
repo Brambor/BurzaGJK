@@ -1,4 +1,3 @@
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -17,8 +16,8 @@ class User(User):
 		return self.username
 
 	class Meta:
-		verbose_name = _('Uživatel')
-		verbose_name_plural = _('Uživatelé')
+		verbose_name = _('uživatel')
+		verbose_name_plural = _('uživatelé')
 
 	visited_class = models.CharField(
 		max_length=255,
@@ -34,8 +33,8 @@ class Book(models.Model):
 		)
 
 	class Meta:
-		verbose_name = _('Kniha')
-		verbose_name_plural = _('Knihy')
+		verbose_name = _('kniha')
+		verbose_name_plural = _('knihy')
 
 	ISBN = models.CharField(
 		max_length=255,  # 13char into four parts
@@ -44,6 +43,7 @@ class Book(models.Model):
 		max_length=255,
 	)
 	name = models.CharField(
+		verbose_name = _('název'),
 		max_length=255,
 	)
 	image = models.ImageField()
@@ -55,11 +55,14 @@ class Book(models.Model):
 
 class AbstractOffer(models.Model):
 	class Meta:
-		verbose_name = _('Abstraktní nabídka')
-		verbose_name_plural = _('Abstraktní nabídky')
+		verbose_name = _('abstraktní nabídka')
+		verbose_name_plural = _('abstraktní nabídky')
 
-	price = models.IntegerField()
-	negotiable = models.BooleanField()
+	price = models.IntegerField(
+		verbose_name = _('cena'),
+		)
+	negotiable = models.BooleanField(
+		verbose_name = _('smlouvatelné'),)
 	active = models.BooleanField()
 
 
@@ -72,8 +75,8 @@ class Offer(AbstractOffer):
 		)
 
 	class Meta:
-		verbose_name = _('Nabídka')
-		verbose_name_plural = _('Nabídky')
+		verbose_name = _('nabídka')
+		verbose_name_plural = _('nabídky')
 
 	vendor = models.ForeignKey(
 		User,
@@ -86,12 +89,15 @@ class Offer(AbstractOffer):
 	)
 	book = models.ForeignKey(
 		Book,
+		verbose_name = _('kniha'),
 	)
 	description = models.CharField(
+		verbose_name = _('stav'),
 		max_length=255,
 		blank=True,
 	)
 	will_be_active = models.DateField(
+		verbose_name = _('k odebrání od'),
 		blank=True,
 		null=True,
 	)

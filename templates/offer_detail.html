@@ -25,6 +25,10 @@
 						<input type="submit" value="Koupit">
 						<input type="hidden" name="offer_id" value="{{offer.id}}">
 					</form>
+				{% else %}
+					<p>
+						Musíte být <a href="{% url 'login' %}">přihlášen</a>, abyste mohl kupovat knihy.
+					</p>
 				{% endif %}
 			</td>
 		</tr></table>
