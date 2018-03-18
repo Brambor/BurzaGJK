@@ -19,13 +19,7 @@ def general_list(request, **kwargs):
 		'user': user,
 	}
 	
-	q = request.GET.get('book_id', False)
-	if q:
-		offers = offers.filter(book=q)
-
-		template = loader.get_template('grid_of_offers_for_one_book.html')
-	else:
-		template = loader.get_template('grid_of_offers.html')
+	template = loader.get_template('grid_of_offers.html')
 
 	form = False
 	q = request.GET.get('type', False)
@@ -43,7 +37,7 @@ def general_list(request, **kwargs):
 				offers = offers.filter(active=False, vendor=user)
 
 			if q == 'bit':
-				#superusers are logged in but are not in User so this throws and error
+				#superusers are logged in but are not in User so this throws an error
 				offers = offers.filter(buyer__in=[User.objects.get(id=user)])
 		else:
 			return redirect('clusters_all')
@@ -102,6 +96,24 @@ def cluster_list(request):
 
 	template = loader.get_template('grid_of_clusters.html')
 	return HttpResponse(template.render(context, request))
+
+def offer_list_for_one_book(request, book_id):
+	if request.user.is_authenticated:
+		user = request.user.id
+	else:
+		user = -1
+
+	context = {'user': user}
+
+	offers = Offer.objects.all()
+	offers = offers.filter(book=book_id)
+	offers = offers.exclude(vendor=user)
+	context['offers'] = offers
+
+	template = loader.get_template('grid_of_offers_for_one_book.html')
+	return HttpResponse(template.render(context, request))
+
+
 
 def offer_detail(request, offer_id):
 	if request.user.is_authenticated:
@@ -181,7 +193,9 @@ def process_buy(request):
 
 	o.buyer.add(User.objects.get(id=user))
 
-	return HttpResponseRedirect(reverse('offer_detail', args=(offer_id)))
+	response = reverse('offer_detail', kwargs={'offer_id': offer_id}) # success message
+
+	return HttpResponseRedirect(response)
 
 def add_book(request):
 	if request.user.is_authenticated:

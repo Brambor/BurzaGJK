@@ -24,6 +24,7 @@ urlpatterns = [
 	url(r'^general', general_list, name='general_filter'),
 	url(r'^clusters/all$', cluster_list, name='clusters_all'),
 	url(r'^offers/(?P<offer_id>[0-9]+)', offer_detail, name='offer_detail'),
+	url(r'^books/(?P<book_id>[0-9]+)', offer_list_for_one_book, name='offer_list_for_one_book'),
 	url(r'^add_book', add_book, name='add_book'),
 	url(r'^process_sell', process_sell, name='process_sell'),
 	url(r'^process_buy', process_buy, name='process_buy'),

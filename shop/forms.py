@@ -6,6 +6,9 @@ class MakeOfferForm(forms.ModelForm):
 	class Meta:
 		model = Offer
 		exclude = ['active', 'vendor', 'buyer']
+		widgets = {
+			'will_be_active': forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD'}),
+		}
 
 class LoginForm(forms.ModelForm):
 	class Meta:
