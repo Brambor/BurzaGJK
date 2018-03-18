@@ -9,7 +9,7 @@
 		{% if user > -1 %}
 			<a href="{% url 'general_filter' %}?type=sell"><div class="top_bar_menu">prodáváno</div></a>
 			<a href="{% url 'general_filter' %}?type=bit"><div class="top_bar_menu">přihozeno</div></a>
-			<div class="top_bar_menu">k vyřízení</div>
+			<a href="{% url 'transact_list' %}"><div class="top_bar_menu">k vyřízení</div></a>
 			<a href="{% url 'general_filter' %}?type=history"><div class="top_bar_menu">historie</div></a>
 			<a href="{% url 'logout' %}"><div class="top_bar_menu">odhlásit se</div></a>
 		{% else %}

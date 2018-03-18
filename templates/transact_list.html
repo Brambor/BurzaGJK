@@ -1,0 +1,22 @@
+{% include "base.html" %}
+
+	<div class="main_field">
+		{% for offer in offers %}
+			<a href="{% url 'transact_detail' offer.id %}"><div class="offer">
+				<img src="{{offer.book.image.url}}" style="max-width: 200px"></img>
+				<p>Autor: <b>{{offer.book.author}}</b></p>
+				<p>Kniha: <b>{{offer.book.name}}</b></p>
+				<p>Stav: <b>{{offer.description}}</b></p>
+				<p>
+					Cena: <b>{{offer.price}} Kč</b>
+					{% if offer.negotiable %}
+						(smlouvatelné)
+					{% endif %}
+				</p>
+				{% if offer.will_be_active != None %}
+					<p>K odebrání od: <b>{{offer.will_be_active|date:"d.m.Y"}}</b></p>
+				{% endif %}
+			</div></a>
+		{% endfor %}
+	</div>
+</body>

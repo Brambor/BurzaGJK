@@ -4,6 +4,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template import loader
 from django.urls import reverse
 
+from django.db.models import Count
+
 from .forms import AddBookForm, MakeOfferForm, LoginForm
 from .models import Offer, User
 
@@ -113,8 +115,6 @@ def offer_list_for_one_book(request, book_id):
 	template = loader.get_template('grid_of_offers_for_one_book.html')
 	return HttpResponse(template.render(context, request))
 
-
-
 def offer_detail(request, offer_id):
 	if request.user.is_authenticated:
 		user = request.user.id
@@ -215,4 +215,41 @@ def add_book(request):
 	else:
 		context['form'] =  AddBookForm()
 
+	return HttpResponse(template.render(context, request))
+
+def transact_list(request):
+	if request.user.is_authenticated:
+		user = request.user.id
+		context = {'user': user}
+	else:
+		return redirect('clusters_all')
+
+	offers = Offer.objects.all()
+	offers = offers.filter(vendor=user)
+	offers = offers.annotate(num_buyers=Count('buyer'))
+	offers = offers.filter(num_buyers__gte=1)
+	context['offers'] = offers
+
+	template = loader.get_template('transact_list.html')
+	return HttpResponse(template.render(context, request))
+
+def transact_detail(request, offer_id):
+	if request.user.is_authenticated:
+		user = request.user.id
+		context = {'user': user}
+	else:
+		return redirect('clusters_all')
+
+	offer = get_object_or_404(Offer, id=offer_id)
+	buyers = User.objects.filter(purchase=offer)
+	for b in buyers.values():
+		print(b)
+	#mě zajímá, aby User byl pod Offer -> buyer
+
+	context = {
+		'offer': offer,
+		'buyers': buyers,
+		'user': user,
+	}
+	template = loader.get_template('transact_detail.html')
 	return HttpResponse(template.render(context, request))
