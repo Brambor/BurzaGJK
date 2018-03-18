@@ -103,18 +103,30 @@ def cluster_list(request):
 	template = loader.get_template('grid_of_clusters.html')
 	return HttpResponse(template.render(context, request))
 
-def offer_detail(request, offer):
+def offer_detail(request, offer_id):
 	if request.user.is_authenticated:
 		user = request.user.id
 	else:
 		user = -1
-	context = {
-		'offer': get_object_or_404(Offer, id=offer),
-		'user': user,
-	}
 
-	template = loader.get_template('offer_detail.html')
-	return HttpResponse(template.render(context, request))
+	offer = get_object_or_404(Offer, id=offer_id)
+
+	if request.method == 'POST':
+		print(offer.vendor)
+		if (user == -1) or (request.user.id != offer.vendor.id):
+			return redirect('clusters_all')
+
+		offer.delete()
+		response = redirect('general_filter')
+		response['Location'] += '?type=sell'  #success message
+		return response
+	else:
+		context = {
+			'offer': offer,
+			'user': user,
+		}
+		template = loader.get_template('offer_detail.html')
+		return HttpResponse(template.render(context, request))
 
 #create user
 #user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
@@ -124,14 +136,12 @@ def login_view(request):
 	if request.method == 'POST':
 		username = request.POST['username']
 		password = request.POST['password']
-		print(username, password)
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
 		else:
 			return redirect('login')
 
-		print(request.user, request.user.id)
 		return redirect('clusters_all')
 	else:
 		context = {}
