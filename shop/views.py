@@ -124,7 +124,6 @@ def offer_detail(request, offer_id):
 	offer = get_object_or_404(Offer, id=offer_id)
 
 	if request.method == 'POST':
-		print(offer.vendor)
 		if (user == -1) or (request.user.id != offer.vendor.id):
 			return redirect('clusters_all')
 
@@ -242,9 +241,6 @@ def transact_detail(request, offer_id):
 
 	offer = get_object_or_404(Offer, id=offer_id)
 	buyers = User.objects.filter(purchase=offer)
-	for b in buyers.values():
-		print(b)
-	#mě zajímá, aby User byl pod Offer -> buyer
 
 	context = {
 		'offer': offer,
