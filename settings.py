@@ -19,9 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/Burza
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^g=6yeakfct9q8v+d@d=6n+7#txx7ty9(o@zzj4olm$j99h%#p'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -75,16 +72,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'burza',
-        'USER': 'burzic',
-    }
-}
+try:
+    from local_settings import *
+except ImportError:
+    raise ImportError(_("The local_settings file could not be found. Maybe you forgot to copy local_settings_default?"))
 
 
 # Password validation
