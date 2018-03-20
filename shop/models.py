@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -62,6 +63,9 @@ class AbstractOffer(models.Model):
 
 	price = models.IntegerField(
 		verbose_name = _('cena'),
+		validators = [
+			MinValueValidator(0),
+		]
 		)
 	negotiable = models.BooleanField(
 		verbose_name = _('smlouvatelné'),)

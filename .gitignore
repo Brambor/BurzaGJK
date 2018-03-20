@@ -1,4 +1,3 @@
 venv/*
 static/images/*
 *.pyc
-db.sqlite3
