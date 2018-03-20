@@ -33,5 +33,7 @@
 				{% include 'book.html' %}
 				<p>Prodávající: <b>{{offer.vendor}}</b></p>
 			</div></a>
+		{% empty %}
+			<p>Nic tu není!</p>
 		{% endfor %}
 {% endblock %}

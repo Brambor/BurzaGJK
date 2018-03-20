@@ -6,5 +6,7 @@
 				<img src="{{offer.book.image.url}}" style="max-width: 200px"></img>
 				{% include 'book.html' %}
 			</div></a>
+		{% empty %}
+			<p>Nic k vyřízení.</p>
 		{% endfor %}
 {% endblock %}

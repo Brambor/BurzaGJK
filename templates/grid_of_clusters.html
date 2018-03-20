@@ -9,5 +9,7 @@
 					<p>Cena: <b>{{cluster.price}} Kč</b></p>
 					<p>Množství: <b>{{cluster.amount}} Ks</b></p>
 			</div></a>
+		{% empty %}
+			<p>Žádné nabídky (od ostatních) neexistují.</p>
 		{% endfor %}
 {% endblock %}
