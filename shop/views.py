@@ -132,6 +132,7 @@ def offer_detail(request, offer_id):
 		response['Location'] += '?type=sell'  #success message
 		return response
 	else:
+		offer.bought = offer.buyer.filter(pk=user).exists()
 		context = {
 			'offer': offer,
 			'user': user,

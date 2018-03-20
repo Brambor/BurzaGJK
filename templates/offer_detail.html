@@ -3,14 +3,16 @@
 {% block content %}
 		<table align="center"><tr>
 			<td valign="top">
-				<img src="{{offer.book.image.url}}"></img>
+				<img src="{{offer.book.image.url}}" style="max-width: 450px; max-height: 625px;"></img>
 			</td>
 			<td valign="top">
 				{% include 'book.html' %}
 				<p>Prodávající: <b>{{offer.vendor}}</b></p>
 
 				{% if user > 0 %}
-					{% if user != offer.vendor.id %}
+					{% if offer.bought %}
+						<p>Tuto knihu kupujete.</p>
+					{% elif user != offer.vendor.id %}
 						<form method="post" action="{% url 'process_buy' %}">
 							{% csrf_token %}
 							<input type="submit" value="Koupit">

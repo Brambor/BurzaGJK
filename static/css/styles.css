@@ -40,3 +40,7 @@ a {
 	margin: 5px;
 	background-color: #b1c1da;
 }
+
+.form_table th {
+	text-align: left;
+}

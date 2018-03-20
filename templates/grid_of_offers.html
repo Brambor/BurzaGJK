@@ -5,20 +5,11 @@
 			<p>Nemůžete najít knihu? <a href="{% url 'add_book' %}">Přidejte jí!</a></p>
 			<form method="post" action="{% url 'process_sell' %}">
 				{% csrf_token %}
-				<table>
+				<table class="form_table">
 					<th>
 						Prodat
 					</th>
-					{% for field in form %}
-						<tr>
-							<td>
-								{{field.label}}
-							</td>
-							<td>
-								{{ field }}
-							</td>
-						</tr>
-					{% endfor %}
+					{{ form.as_table }}
 					<tr>
 						<td>
 							<input type="submit" name="button" value="Odeslat">
