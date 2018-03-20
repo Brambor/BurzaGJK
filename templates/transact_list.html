@@ -1,6 +1,6 @@
-{% include "base.html" %}
+{% extends "base.html" %}
 
-	<div class="main_field">
+{% block content %}
 		{% for offer in offers %}
 			<a href="{% url 'transact_detail' offer.id %}"><div class="offer">
 				<img src="{{offer.book.image.url}}" style="max-width: 200px"></img>
@@ -18,5 +18,4 @@
 				{% endif %}
 			</div></a>
 		{% endfor %}
-	</div>
-</body>
+{% endblock %}

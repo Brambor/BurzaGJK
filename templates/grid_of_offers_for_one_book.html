@@ -1,6 +1,6 @@
-{% include "base.html" %}
+{% extends "base.html" %}
 
-	<table class="main_field">
+{% block content %}
 		<tr>
 			<td style="vertical-align: top;">
 				<img src="{{offers.first.book.image.url}}" style="max-width: 300px"></img>
@@ -25,5 +25,4 @@
 				{% endfor %}
 			</td>
 		</tr>
-	</table>
-</body>
+{% endblock %}

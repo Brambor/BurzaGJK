@@ -1,6 +1,6 @@
-{% include "base.html" %}
+{% extends "base.html" %}
 
-	<div class="main_field">
+{% block content %}
 		{% for cluster in clusters %}
 			<a href="{% url 'offer_list_for_one_book' cluster.book_id %}"><div class="offer">
 					<img src="{{cluster.image}}" style="max-width: 200px"></img>
@@ -10,5 +10,4 @@
 					<p>Množství: <b>{{cluster.amount}} Ks</b></p>
 			</div></a>
 		{% endfor %}
-	</div>
-</body>
+{% endblock %}

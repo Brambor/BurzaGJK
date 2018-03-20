@@ -1,6 +1,6 @@
-{% include "base.html" %}
+{% extends "base.html" %}
 
-	<div class="main_field">
+{% block content %}
 		{% if form %}
 			<p>Nemůžete najít knihu? <a href="{% url 'add_book' %}">Přidejte jí!</a></p>
 			<form method="post" action="{% url 'process_sell' %}">
@@ -45,5 +45,4 @@
 				<p>Prodávající: <b>{{offer.vendor}}</b></p>
 			</div></a>
 		{% endfor %}
-	</div>
-</body>
+{% endblock %}
