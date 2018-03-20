@@ -6,18 +6,7 @@
 				<img src="{{offer.book.image.url}}"></img>
 			</td>
 			<td valign="top">
-				<p>Autor: <b>{{offer.book.author}}</b></p>
-				<p>Kniha: <b>{{offer.book.name}}</b></p>
-				<p>Stav: <b>{{offer.description}}</b></p>
-				<p>
-					Cena: <b>{{offer.price}} Kč</b>
-					{% if offer.negotiable %}
-						(negotiable)
-					{% endif %}
-				</p>
-				{% if offer.will_be_active != None %}
-					<p>K odebrání od: <b>{{offer.will_be_active|date:"d.m.Y"}}</b></p>
-				{% endif %}
+				{% include 'book.html' %}
 				<p>Prodávající: <b>{{offer.vendor}}</b></p>
 
 				{% if user > 0 %}
