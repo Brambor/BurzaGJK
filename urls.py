@@ -32,4 +32,5 @@ urlpatterns = [
 	url(r'^process_buy', process_buy, name='process_buy'),
 	url(r'^login$', login_view, name='login'),
 	url(r'^logout$', logout_view, name='logout'),
+	url(r'^$', cluster_list, name='clusters_all'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

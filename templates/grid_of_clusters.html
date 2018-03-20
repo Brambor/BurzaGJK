@@ -3,7 +3,7 @@
 {% block content %}
 		{% for cluster in clusters %}
 			<a href="{% url 'offer_list_for_one_book' cluster.book_id %}"><div class="offer">
-					<img src="{{cluster.image}}" style="max-width: 200px"></img>
+					<img src="{{cluster.image}}" class="img_list"></img>
 					<p>Autor: <b>{{cluster.book_author}}</b></p>
 					<p>Kniha: <b>{{cluster.book_name}}</b></p>
 					<p>Cena: <b>{{cluster.price}} Kč</b></p>

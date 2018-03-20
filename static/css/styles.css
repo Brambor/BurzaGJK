@@ -44,3 +44,13 @@ a {
 .form_table th {
 	text-align: left;
 }
+
+.img_detail {
+	max-width: 450px;
+	max-height: 625px;
+}
+
+.img_list {
+	max-width: 200px;
+	max-height: 300px;
+}
