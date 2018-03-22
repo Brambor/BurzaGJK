@@ -2,9 +2,9 @@
 
 {% block content %}
 
-		<h3>Prodat</h3>
-		{% for offer in offers %}
-			<a href="{% url 'transact_detail' offer.id %}"><div class="offer">
+		<h3>Prodáno</h3>
+		{% for offer in offers_sold %}
+			<a href="{% url 'history_detail' offer.id %}"><div class="offer">
 				<img src="{{offer.book.image.url}}" class="img_list"></img>
 				{% include 'book.html' %}
 			</div></a>
@@ -12,9 +12,9 @@
 			<p>Nic k vyřízení.</p>
 		{% endfor %}
 
-		<h3>Koupit</h3>
-		{% for offer in purchases %}
-			<a href="{% url 'transact_detail' offer.id %}"><div class="offer">
+		<h3>Koupeno</h3>
+		{% for offer in offers_bought %}
+			<a href="{% url 'history_detail' offer.id %}"><div class="offer">
 				<img src="{{offer.book.image.url}}" class="img_list"></img>
 				{% include 'book.html' %}
 			</div></a>

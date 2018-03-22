@@ -1,31 +1,45 @@
-{% extends "base.html" %}
+{% extends "base_transact_detail.html" %}
 
-{% block content %}
-		<table align="center">
+{% block final_buyer %}
+						<p>Kupuje:</p>
+						<strong><p>{{buyers.first_name}} {{buyers.last_name}}</p>
+						<p>{{buyers.email}}, {{buyers.visited_class}}</p></strong>
+						{% if user_type == 'vendor' %}
+							<p>Hello there vendor!</p>
+							<p>Už jste prodali knihu a dostali zaplaceno?</p>
+							<form method="post" action="{% url 'transact_detail' offer.id %}">
+								<input type="hidden" name="transaction_complete" value="vendor">
+								{% csrf_token %}
+								<input type="submit" value="Transakce proběhla">
+							</form>
+						{% elif user_type == 'buyer' %}
+							<p>Hello there buyer!</p>
+							<p>Už jste dostali knihu a zaplatili za ní?</p>
+							<form method="post" action="{% url 'transact_detail' offer.id %}">
+								<input type="hidden" name="transaction_complete" value="buyer">
+								{% csrf_token %}
+								<input type="submit" value="Transakce proběhla">
+							</form>
+						{% endif %}
+{% endblock %}
+
+{% block buyers %}
 			<tr>
-				<td valign="top">
-					<img src="{{offer.book.image.url}}" class="img_detail"></img>
-				</td>
-				<td valign="top">
-					{% include 'book.html' %}
-					<p>Prodávající: <b>{{offer.vendor}}</b></p>
-					<p>Tuto knihu prodáváte vy</p>
-					<form method="post" action="{% url 'offer_detail' offer.id %}">
-						{% csrf_token %}
-						<input type="submit" value="Stáhnout z prodeje">
-					</form>
-				</td>
-			</tr><tr>
 				<td valign="top">Knihu chtějí koupit:</td>
-			</tr><tr>
+			</tr>
+			<tr>
 				<td valign="top">
 					{% for buyer in buyers %}
 						<div class="offer">
 							<p>{{buyer.first_name}} {{buyer.last_name}}</p>
 							<p>{{buyer.email}}, {{buyer.visited_class}}</p>
+							<form method="post" action="{% url 'transact_detail' offer.id %}">
+								<input type="hidden" name="buyer_id" value="{{ buyer.id }}">
+								{% csrf_token %}
+								<input type="submit" value="Prodat">
+							</form>
 						</div>
 					{% endfor %}
 				</td>
 			</tr>
-		</table>
 {% endblock %}

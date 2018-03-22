@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+		<h3>Historie transakce.</h3>
+		<table align="center"><tr>
+			<td valign="top">
+				<img src="{{offer.book.image.url}}" class="img_detail"></img>
+			</td>
+			<td valign="top">
+				{% include 'book.html' %}
+				<p>Prodal: <b>{{offer.vendor}}</b></p>
+				<p>Koupil: <b>{{offer.final_buyer}}</b></p>
+			</td>
+		</tr></table>
+{% endblock %}

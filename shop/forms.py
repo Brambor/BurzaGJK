@@ -5,7 +5,7 @@ from .models import Offer, User, Book
 class MakeOfferForm(forms.ModelForm):
 	class Meta:
 		model = Offer
-		exclude = ['active', 'vendor', 'buyer']
+		exclude = ['active', 'vendor', 'buyer', 'buyer_complete', 'vendor_complete', 'final_buyer']
 		widgets = {
 			'will_be_active': forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD'}),
 		}

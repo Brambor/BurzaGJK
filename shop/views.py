@@ -11,7 +11,7 @@ from .models import Offer, User
 
 
 def general_list(request, **kwargs):
-	offers = Offer.objects.all()
+	offers = Offer.objects.filter(active=True)
 	if request.user.is_authenticated:
 		user = request.user.id
 	else:
@@ -35,12 +35,9 @@ def general_list(request, **kwargs):
 			else:
 				form = False
 
-			if q == 'history':
-				offers = offers.filter(active=False, vendor=user)
-
 			if q == 'bit':
 				#superusers are logged in but are not in User so this throws an error
-				offers = offers.filter(buyer__in=[User.objects.get(id=user)])
+				offers = offers.filter(buyer__id=user)
 		else:
 			return redirect('clusters_all')
 
@@ -213,7 +210,7 @@ def add_book(request):
 			response['Location'] += '?type=sell'  #success message
 			return response
 	else:
-		context['form'] =  AddBookForm()
+		context['form'] = AddBookForm()
 
 	return HttpResponse(template.render(context, request))
 
@@ -224,11 +221,22 @@ def transact_list(request):
 	else:
 		return redirect('clusters_all')
 
-	offers = Offer.objects.all()
+	offers = Offer.objects.filter(active=True)
+	offers = Offer.objects.filter(vendor_complete=False)
 	offers = offers.filter(vendor=user)
+
+	# use Q object
+	# can be found here
+	# https://docs.djangoproject.com/en/dev/ref/models/conditional-expressions/#when
 	offers = offers.annotate(num_buyers=Count('buyer'))
 	offers = offers.filter(num_buyers__gte=1)
 	context['offers'] = offers
+
+	purchases = Offer.objects.filter(active=True)
+	purchases = Offer.objects.filter(buyer_complete=False)
+
+	purchases = purchases.filter(final_buyer=user)
+	context['purchases'] = purchases	
 
 	template = loader.get_template('transact_list.html')
 	return HttpResponse(template.render(context, request))
@@ -241,12 +249,63 @@ def transact_detail(request, offer_id):
 		return redirect('clusters_all')
 
 	offer = get_object_or_404(Offer, id=offer_id)
-	buyers = User.objects.filter(purchase=offer)
 
-	context = {
-		'offer': offer,
-		'buyers': buyers,
-		'user': user,
-	}
+	if request.method == 'POST':
+		q = request.POST.get('buyer_id', False)
+		if q:
+			offer.final_buyer = get_object_or_404(User, id=request.POST['buyer_id'])
+			offer.save()
+		q = request.POST.get('transaction_complete', False)
+		if q:
+			if q == 'vendor': #  check whether it is really the user who is posting that
+				offer.vendor_complete = True
+				offer.save()
+			elif q == 'buyer':
+				offer.buyer_complete = True
+				offer.save()
+
+			if offer.vendor_complete and offer.buyer_complete:
+				offer.active = False
+				offer.save()
+			return redirect('transact_list')
+
+
+	if offer.final_buyer != None:
+		context['final_buyer'] = True
+		context['buyers'] = offer.final_buyer
+	else:
+		context['final_buyer'] = False
+		context['buyers'] = User.objects.filter(bit=offer)
+
+	context['user_type'] = 'vendor'
+	if offer.final_buyer:
+		if user == context['buyers'].id:
+			context['user_type'] = 'buyer'
+
+	context['offer'] = offer
 	template = loader.get_template('transact_detail.html')
+	return HttpResponse(template.render(context, request))
+
+def history(request):
+	if request.user.is_authenticated:
+		user = request.user.id
+		context = {'user': user}
+	else:
+		return redirect('clusters_all')
+	
+	context['offers_sold'] = Offer.objects.filter(vendor_complete=True, vendor=user)
+	context['offers_bought'] = Offer.objects.filter(buyer_complete=True, buyer__id=user)
+
+	template = loader.get_template('history.html')
+	return HttpResponse(template.render(context, request))
+
+def history_detail(request, offer_id):
+	if request.user.is_authenticated:
+		user = request.user.id
+		context = {'user': user}
+	else:
+		return redirect('clusters_all')
+
+	context['offer'] = get_object_or_404(Offer, id=offer_id)
+	template = loader.get_template('history_detail.html')
 	return HttpResponse(template.render(context, request))

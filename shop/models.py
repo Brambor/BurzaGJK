@@ -90,8 +90,14 @@ class Offer(AbstractOffer):
 	)
 	buyer = models.ManyToManyField(
 		User,
+		related_name='bit',
+		blank=True,
+	)
+	final_buyer = models.ForeignKey(
+		User,
 		related_name='purchase',
 		blank=True,
+		null=True,
 	)
 	book = models.ForeignKey(
 		Book,
@@ -106,4 +112,14 @@ class Offer(AbstractOffer):
 		verbose_name = _('k odebrání od'),
 		blank=True,
 		null=True,
+	)
+	buyer_complete = models.BooleanField(
+		verbose_name = _('Transakce Proběhla'),
+		blank=True,
+		default=False,
+	)
+	vendor_complete = models.BooleanField(
+		verbose_name = _('Transakce Proběhla'),
+		blank=True,
+		default=False,
 	)
