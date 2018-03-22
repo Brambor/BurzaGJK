@@ -11,7 +11,7 @@ from .models import Offer, User
 
 
 def general_list(request, **kwargs):
-	offers = Offer.objects.filter(active=True)
+	offers = Offer.objects.filter(active=True).filter(final_buyer__isnull=True)
 	if request.user.is_authenticated:
 		user = request.user.id
 	else:
@@ -50,7 +50,7 @@ def cluster_list(request):
 		user = request.user.id
 	else:
 		user = -1
-	offers = Offer.objects.all().filter(active=True).exclude(vendor=user)
+	offers = Offer.objects.all().filter(active=True).filter(final_buyer__isnull=True).exclude(vendor=user)
 	clusters = {}
 	for offer in offers:
 		if offer.book.name in clusters:
