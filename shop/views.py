@@ -286,7 +286,7 @@ def transact_detail(request, offer_id):
 	template = loader.get_template('transact_detail.html')
 	return HttpResponse(template.render(context, request))
 
-def history(request):
+def history_list(request):
 	if request.user.is_authenticated:
 		user = request.user.id
 		context = {'user': user}
