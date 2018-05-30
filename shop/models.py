@@ -87,7 +87,7 @@ class Offer(AbstractOffer):
 	vendor = models.ForeignKey(
 		User,
 		related_name='offer',
-		on_delete='cascade',
+		on_delete=models.CASCADE,
 	)
 	buyer = models.ManyToManyField(
 		User,
@@ -99,12 +99,12 @@ class Offer(AbstractOffer):
 		related_name='purchase',
 		blank=True,
 		null=True,
-		on_delete='cascade',
+		on_delete=models.CASCADE,
 	)
 	book = models.ForeignKey(
 		Book,
 		verbose_name = _('kniha'),
-		on_delete='cascade',
+		on_delete=models.CASCADE,
 	)
 	description = models.CharField(
 		verbose_name = _('stav'),
