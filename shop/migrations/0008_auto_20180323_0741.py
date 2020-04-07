@@ -13,16 +13,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='offer',
             name='book',
-            field=models.ForeignKey(on_delete='cascade', to='shop.Book', verbose_name='kniha'),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='shop.Book', verbose_name='kniha'),
         ),
         migrations.AlterField(
             model_name='offer',
             name='final_buyer',
-            field=models.ForeignKey(blank=True, null=True, on_delete='cascade', related_name='purchase', to='shop.User'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=models.CASCADE, related_name='purchase', to='shop.User'),
         ),
         migrations.AlterField(
             model_name='offer',
             name='vendor',
-            field=models.ForeignKey(on_delete='cascade', related_name='offer', to='shop.User'),
+            field=models.ForeignKey(on_delete=models.CASCADE, related_name='offer', to='shop.User'),
         ),
     ]
