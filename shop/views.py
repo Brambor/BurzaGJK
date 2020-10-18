@@ -79,10 +79,7 @@ def cluster_list(request):
 		if clusters[c]['amount'] == 1:
 			clusters[c]['price'] = clusters[c]['min_price']
 		else:
-			clusters[c]['price'] = '{min_price} - {max_price}'.format(
-				min_price=clusters[c]['min_price'],
-				max_price=clusters[c]['max_price'],
-			)
+			clusters[c]['price'] = f"{clusters[c]['min_price']} - {clusters[c]['max_price']}"
 		del clusters[c]['min_price']
 		del clusters[c]['max_price']
 
@@ -176,7 +173,7 @@ def process_sell(request):
 
 		instance.save()
 
-	return HttpResponseRedirect('{}?type=sell'.format(reverse('general_filter')))
+	return HttpResponseRedirect(f"{reverse('general_filter')}?type=sell")
 
 def process_buy(request):
 	if request.user.is_authenticated:

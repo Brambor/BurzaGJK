@@ -6,9 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 from itertools import chain
 
 classes = chain(
-	(('R{i}.A'.format(i=i), 'R{i}.A'.format(i=i)) for i in range(1, 9)),
-	(('{n}.{clas}'.format(n=i, clas=clas), '{n}.{clas}'.format(n=i, clas=clas))
-		for i in range(1, 5) for clas in ('A', 'B', 'C')),
+	((f'R{i}.A', f'R{i}.A') for i in range(1, 9)),
+	((f'{n}.{clas}', f'{n}.{clas}')
+		for n in range(1, 5) for clas in ('A', 'B', 'C')),
 )
 
 
@@ -28,10 +28,7 @@ class User(User):
 
 class Book(models.Model):
 	def __str__(self):
-		return '{author}: {name}'.format(
-			author=self.author,
-			name=self.name,
-		)
+		return f'{self.author}: {self.name}'
 
 	class Meta:
 		verbose_name = _('kniha')
@@ -74,11 +71,8 @@ class AbstractOffer(models.Model):
 
 class Offer(AbstractOffer):
 	def __str__(self):
-		return 'vendor: {vendor}, book: {book}, price: {price} Kč'.format(
-			vendor=self.vendor.username,
-			book=self.book.name,
-			price=self.price,
-		)
+		return (f'vendor: {self.vendor.username}, book: {self.book.name}, '
+				f'price: {self.price} Kč')
 
 	class Meta:
 		verbose_name = _('nabídka')
