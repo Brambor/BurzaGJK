@@ -169,6 +169,8 @@ def process_sell(request):
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.active = True
+		# when logged in as admin (to domain/admin or just through login btn),
+		# this will result in an error
 		instance.vendor = User.objects.get(id=user)
 
 		instance.save()
